@@ -2,7 +2,7 @@ import pytest
 
 
 @pytest.mark.usefixtures('open_browser')
-def test_registration(get_driver, user_registration):
+def test_registration(get_driver, user_registration, confirm_registration):
     driver = get_driver
 
     # main map page

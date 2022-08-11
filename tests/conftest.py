@@ -11,24 +11,22 @@ def get_user():
 
 @pytest.fixture
 def user_registration(sign_up_page, get_driver, get_user):
-    driver = get_driver
-    user = get_user
-
     sign_up_page \
         .sign_up(user=get_user)
 
-    # get email
+
+@pytest.fixture
+def get_email_verification_code(get_user):
     mail = MailMessage()
-    messages = mail.get_mime_messages_by_field('to', user.email)
+    messages = mail.get_mime_messages_by_field('to', get_user.email)
     message_payload = messages[0].get_payload()[0]
-    verification_code = MailBodyParser(message_payload).get_mail_verification_code()
+    return MailBodyParser(message_payload).get_mail_verification_code()
 
-    # confirmation code field
-    confirmation_code_field = driver.find_element(by="xpath", value="//input[@data-id='confirm-code-input']")
-    confirm_email_button = driver.find_element(by="xpath", value="//button[@data-id='submit-code-btn']")
 
-    confirmation_code_field.send_keys(verification_code)
-    # confirm_email_button.click()
+@pytest.fixture
+def confirm_registration(confirm_registration_page, get_email_verification_code):
+    confirm_registration_page \
+        .fill_in_verification_code(get_email_verification_code)
 
 
 @pytest.fixture
