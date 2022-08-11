@@ -135,6 +135,4 @@ dmypy.json
 .cache/
 .downloads/
 .screenshots/
-allure-results/
-allure-report/
 

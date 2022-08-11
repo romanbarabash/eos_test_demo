@@ -1,31 +1,41 @@
 import pytest
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
+
+from src.browser.browser import Browser
+from src.page_objects.modals.get_gift_modal import GetGiftModal
+from src.page_objects.pages.base_page import BasePage
+from src.page_objects.pages.sign_up_page import SignUpPage
+
+
+# region pages
+
+@pytest.fixture
+def base_page() -> BasePage:
+    return BasePage()
 
 
 @pytest.fixture
-def get_options():
-    options = webdriver.ChromeOptions()
-    options.add_argument("disable-infobars")
-    options.add_argument("start-maximized")
-    options.add_argument("disable-dev-shm-usage")
-    options.add_argument("no-sandbox")
-    options.add_argument("incognito")
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    options.add_argument("disable-blink-features=AutomationControlled")
-    return options
+def sign_up_page() -> SignUpPage:
+    return SignUpPage()
+
+
+# endregion pages
+
+# region modals
+@pytest.fixture
+def get_gift_modal() -> GetGiftModal:
+    return GetGiftModal()
+
+
+# endregion modals
 
 
 @pytest.fixture
-def get_driver(get_options):
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=get_options)
-    driver.implicitly_wait(10)
-    return driver
+def get_driver():
+    return  Browser().driver
 
 
 @pytest.fixture
 def open_browser(get_driver):
-    driver = get_driver
+    get_driver.get("https://crop-monitoring.eos.com/")
     yield
-    driver.quit()
-
+    get_driver.quit()

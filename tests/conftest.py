@@ -1,7 +1,4 @@
-from time import sleep
-
 import pytest
-from selenium.webdriver import Keys, ActionChains
 
 from src.gmail_service.mail_message import MailMessage, MailBodyParser
 from src.models.user_model import UserModel
@@ -13,34 +10,12 @@ def get_user():
 
 
 @pytest.fixture
-def user_registration(get_driver, get_user):
+def user_registration(sign_up_page, get_driver, get_user):
     driver = get_driver
     user = get_user
-    driver.get("https://crop-monitoring.eos.com/")
 
-    # registration/sign in form
-    first_name_field = driver.find_element(by="xpath", value="//input[@formcontrolname='first_name']")
-    last_name_field = driver.find_element(by="xpath", value="//input[@formcontrolname='last_name']")
-    email_name_field = driver.find_element(by="xpath", value="//input[@formcontrolname='email']")
-    password_name_field = driver.find_element(by="xpath", value="//input[@formcontrolname='password']")
-
-    terms_of_use_checkbox = driver.find_element(by="xpath", value="//span[./input[@id='mat-checkbox-1-input']]")
-    sign_up_button = driver.find_element(by="xpath", value="//button[@data-id='sign-up-btn']")
-
-    # sign_in_button = driver.find_element(by="xpath", value="//button[@data-id='sign-in-btn']")
-    # sign_in_form_button = driver.find_element(by="xpath", value="//button[@data-id='sign-in-button']")
-    # sign_up_form_button = driver.find_element(by="xpath", value="//button[@data-id='go-signup-btn']")
-
-    first_name_field.send_keys(user.first_name)
-    last_name_field.send_keys(user.last_name)
-    email_name_field.send_keys(user.email)
-    password_name_field.send_keys(user.password)
-    terms_of_use_checkbox.click()
-
-    sign_up_button.send_keys(Keys.END)
-    action = ActionChains(driver)
-    sleep(3)
-    action.move_to_element(sign_up_button).click().perform()
+    sign_up_page \
+        .sign_up(user=get_user)
 
     # get email
     mail = MailMessage()
@@ -57,13 +32,10 @@ def user_registration(get_driver, get_user):
 
 
 @pytest.fixture
-def log_out(get_driver, get_user):
-    driver = get_driver
-    close_modal_button = driver.find_element(by="xpath", value="//button[@id='x-button']")
-    close_modal_button.click()
+def log_out(base_page, get_gift_modal, get_driver, get_user):
+    get_gift_modal \
+        .close_popup()
 
-    user_menu = driver.find_element(by="xpath", value="//button[@name='user-menu']")
-    user_menu.click()
-
-    log_out_button = driver.find_element(by="xpath", value="//button[@data-id='log-out-button']")
-    log_out_button.click()
+    base_page \
+        .open_user_menu() \
+        .log_out()

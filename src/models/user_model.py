@@ -19,5 +19,5 @@ class UserModel(BaseModel):
     def create(cls, *args, **kwargs):
         return cls(first_name=fake.first_name(),
                    last_name=fake.last_name(),
-                   email='test.qa98989' + '+' + str(random.randint(1, 99999)) + '@gmail.com',
-                   password=fake.first_name() + str(random.randint(1, 99999)))
+                   email='test.qa98989' + '+' + str(random.randint(10000, 99999)) + '@gmail.com',
+                   password=fake.first_name() + str(random.randint(10000, 99999)))
