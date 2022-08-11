@@ -18,7 +18,6 @@ class SignUpPage(BasePage):
     def __init__(self):
         super().__init__()
 
-    # actions
     def sign_up(self, user: UserModel):
         self.driver.find_element(*self.FIRST_NAME_FIELD).send_keys(user.first_name)
         self.driver.find_element(*self.LAST_NAME_FIELD).send_keys(user.last_name)
@@ -28,5 +27,6 @@ class SignUpPage(BasePage):
         sign_up_button = self.driver.find_element(*self.SIGN_UP_BUTTON)
         sign_up_button.send_keys(Keys.END)
         sleep(2)
+        #  TODO
         sign_up_button.click()
         return self

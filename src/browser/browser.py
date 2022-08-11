@@ -4,6 +4,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 
 class Browser:
+    driver = None
+
     class __WebDriver:
         def __init__(self):
             self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=self.get_options())
@@ -20,10 +22,9 @@ class Browser:
             options.add_argument("disable-blink-features=AutomationControlled")
             return options
 
-    driver = None
-
     def __init__(self):
         if not self.driver:
             Browser.driver = Browser.__WebDriver().driver
 
-driver =
+
+browser = Browser()

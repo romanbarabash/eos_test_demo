@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-from src.browser.browser import  Browser
+from src.browser.browser import browser
 
 
 class BasePage:
@@ -8,9 +8,8 @@ class BasePage:
     LOG_OUT_BUTTON = (By.XPATH, '//button[@data-id="log-out-button"]')
 
     def __init__(self):
-        self.driver =  Browser().driver
+        self.driver = browser.driver
 
-    # actions
     def open_user_menu(self):
         self.driver.find_element(*self.USER_MENU_BUTTON).click()
         return self
