@@ -1,7 +1,7 @@
 # Framework setup
 
 ### Set env variables
-##### Create `.env` file based on `env.example` file
+##### Create `.env` file based on `env.example` file (similar for this demo project)
 
 ## Installation
 ##### Install Python

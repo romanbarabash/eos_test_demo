@@ -32,7 +32,7 @@ def confirm_registration(confirm_registration_page, get_email_verification_code)
 @pytest.fixture
 def log_out(base_page, get_gift_modal, get_driver, get_user):
     get_gift_modal \
-        .close_popup()
+        .close_popup()  # TODO - randomly fails on this step, modal does not have 'x' icon, check if this is an issue
 
     base_page \
         .open_user_menu() \
