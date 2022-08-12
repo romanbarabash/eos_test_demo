@@ -46,9 +46,6 @@ but good to implement next:
 - test on fail logic with attaching screenshoot and browser logs
 - assert matchers pattern
 - more advanced strategy of handling page elements
-- more advanced wait strategy, custom waits
-
-
 ```
 
 

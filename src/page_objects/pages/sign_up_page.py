@@ -1,6 +1,5 @@
 from time import sleep
 
-from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
 from src.models.user_model import UserModel
@@ -27,8 +26,7 @@ class SignUpPage(BasePage):
         self.driver.find_element(*self.PASSWORD_FIELD).send_keys(user.password)
         self.driver.find_element(*self.TERMS_OF_USE_CHECKBOX).click()
         sign_up_button = self.driver.find_element(*self.SIGN_UP_BUTTON)
-        sign_up_button.send_keys(Keys.END)
-        sleep(2)  # TODO
+        sleep(2)  # TODO - add flexible wait here
         sign_up_button.click()
         return self
 
