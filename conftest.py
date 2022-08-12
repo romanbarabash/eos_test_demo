@@ -1,5 +1,6 @@
 import pytest
 
+from config import HOST
 from src.browser.browser import browser
 from src.page_objects.modals.get_gift_modal import GetGiftModal
 from src.page_objects.pages.base_page import BasePage
@@ -17,6 +18,7 @@ def base_page() -> BasePage:
 @pytest.fixture
 def sign_up_page() -> SignUpPage:
     return SignUpPage()
+
 
 @pytest.fixture
 def confirm_registration_page() -> ConfirmRegistrationPage:
@@ -41,6 +43,6 @@ def get_driver():
 
 @pytest.fixture
 def open_browser(get_driver):
-    get_driver.get("https://crop-monitoring.eos.com/")
+    get_driver.get(HOST)
     yield
     get_driver.quit()

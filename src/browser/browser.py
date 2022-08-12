@@ -2,6 +2,8 @@ from selenium import webdriver
 
 from webdriver_manager.chrome import ChromeDriverManager
 
+from config import TIMEOUT
+
 
 class Browser:
     driver = None
@@ -9,7 +11,7 @@ class Browser:
     class __WebDriver:
         def __init__(self):
             self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=self.get_options())
-            self.driver.implicitly_wait(10)
+            self.driver.implicitly_wait(TIMEOUT)
 
         def get_options(self):
             options = webdriver.ChromeOptions()
