@@ -37,8 +37,19 @@ pytest --capture=no tests
 ```
 
 # TODOs
+Here are list of TODO features, which are not covered with tech task, 
+but good to implement next:
+```
+- pylint code check
+- logging
+- reporting tool integration
+- test on fail logic with attaching screenshoot and browser logs
+- assert matchers pattern
+- more advanced strategy of handling page elements
+- more advanced wait strategy, custom waits
 
 
+```
 
 
 

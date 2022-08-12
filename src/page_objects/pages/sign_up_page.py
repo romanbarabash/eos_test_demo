@@ -37,3 +37,4 @@ class SignUpPage(BasePage):
         self.driver.find_element(*self.EMAIL_FIELD).send_keys(user.email)
         self.driver.find_element(*self.PASSWORD_FIELD).send_keys(user.password)
         self.driver.find_element(*self.SIGN_IN_BUTTON).click()
+        return self
