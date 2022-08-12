@@ -2,7 +2,7 @@ import pytest
 
 
 @pytest.mark.usefixtures('open_browser')
-def test_login(get_user, get_driver, user_registration, confirm_registration, log_out):
+def test_eos_login(get_user, get_driver, user_registration, confirm_registration, log_out):
     user = get_user
     driver = get_driver
 

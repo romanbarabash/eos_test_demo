@@ -26,7 +26,6 @@ class SignUpPage(BasePage):
         self.driver.find_element(*self.TERMS_OF_USE_CHECKBOX).click()
         sign_up_button = self.driver.find_element(*self.SIGN_UP_BUTTON)
         sign_up_button.send_keys(Keys.END)
-        sleep(2)
-        #  TODO
+        sleep(2) #TODO
         sign_up_button.click()
         return self
