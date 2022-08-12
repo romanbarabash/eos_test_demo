@@ -6,7 +6,7 @@ from typing import List
 
 from retrying import retry
 
-from src.gmail_service import gmail_user_id
+from config import GMAIL_USER_ID
 from src.gmail_service.gmail_client import gmail_client
 from src.gmail_service.retry_condition import is_list_empty
 
@@ -23,17 +23,17 @@ class MailBodyParser:
 
 
 class MailMessage:
-    _client = gmail_client()
 
-    def __init__(self, **kwargs):
-        self.user_id = kwargs.get("user_id", gmail_user_id)
+    def __init__(self):
+        self.user_id = GMAIL_USER_ID
+        self.client = gmail_client()
 
     def get_messages(self) -> List[dict]:
-        messages = self._client.users().messages().list(userId=self.user_id, labelIds=['INBOX']).execute()
+        messages = self.client.users().messages().list(userId=self.user_id, labelIds=['INBOX']).execute()
         return messages["messages"]
 
     def get_mime_message(self, msg_id):
-        message = self._client.users().messages().get(userId=self.user_id, id=msg_id, format='raw').execute()
+        message = self.client.users().messages().get(userId=self.user_id, id=msg_id, format='raw').execute()
         msg_byte = base64.urlsafe_b64decode(message['raw'].encode('ASCII'))
         return email.message_from_bytes(msg_byte, policy=policy.default)
 

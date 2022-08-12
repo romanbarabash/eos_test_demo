@@ -1,6 +1,5 @@
 import pytest
 
-from src.gmail_service import gmail_user_id
 from src.gmail_service.mail_message import MailMessage, MailBodyParser
 from src.models.user_model import UserModel
 
@@ -18,7 +17,7 @@ def user_registration(sign_up_page, get_driver, get_user):
 
 @pytest.fixture
 def get_email_verification_code(get_user):
-    mail = MailMessage(user_id=gmail_user_id)
+    mail = MailMessage()
     messages = mail.get_mime_messages_by_field('to', get_user.email)
     message_payload = messages[0].get_payload()[0]
     return MailBodyParser(message_payload).get_mail_verification_code()
