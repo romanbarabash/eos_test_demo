@@ -14,6 +14,8 @@ class SignUpPage(BasePage):
     PASSWORD_FIELD = (By.XPATH, '//input[@formcontrolname="password"]')
     TERMS_OF_USE_CHECKBOX = (By.XPATH, '//span[./input[@id="mat-checkbox-1-input"]]')
     SIGN_UP_BUTTON = (By.XPATH, '//button[@data-id="sign-up-btn"]')
+    SIGN_IN_BUTTON = (By.XPATH, '//button[@data-id="sign-in-btn"]')
+    SIGN_IN_FORM_BUTTON = (By.XPATH, '//button[@data-id="sign-in-button"]')
 
     def __init__(self):
         super().__init__()
@@ -26,6 +28,12 @@ class SignUpPage(BasePage):
         self.driver.find_element(*self.TERMS_OF_USE_CHECKBOX).click()
         sign_up_button = self.driver.find_element(*self.SIGN_UP_BUTTON)
         sign_up_button.send_keys(Keys.END)
-        sleep(2) #TODO
+        sleep(2)  # TODO
         sign_up_button.click()
         return self
+
+    def sign_in(self, user: UserModel):
+        self.driver.find_element(*self.SIGN_IN_FORM_BUTTON).click()
+        self.driver.find_element(*self.EMAIL_FIELD).send_keys(user.email)
+        self.driver.find_element(*self.PASSWORD_FIELD).send_keys(user.password)
+        self.driver.find_element(*self.SIGN_IN_BUTTON).click()

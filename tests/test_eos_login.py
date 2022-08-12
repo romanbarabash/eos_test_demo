@@ -2,22 +2,9 @@ import pytest
 
 
 @pytest.mark.usefixtures('open_browser')
-def test_eos_login(get_user, get_driver, user_registration, confirm_registration, log_out):
-    user = get_user
-    driver = get_driver
+def test_eos_login(base_page, sign_up_page, get_user, user_registration, confirm_registration, log_out):
+    sign_up_page \
+        .sign_in(user=get_user)
 
-    sign_in_form_button = driver.find_element(by="xpath", value="//button[@data-id='sign-in-button']")
-    sign_in_form_button.click()
-
-    # registration/sign in form
-    email_name_field = driver.find_element(by="xpath", value="//input[@formcontrolname='email']")
-    password_name_field = driver.find_element(by="xpath", value="//input[@formcontrolname='password']")
-    sign_in_button = driver.find_element(by="xpath", value="//button[@data-id='sign-in-btn']")
-
-    email_name_field.send_keys(user.email)
-    password_name_field.send_keys(user.password)
-    sign_in_button.click()
-
-    # main map page
-    search_location_input = driver.find_element(by="xpath", value="//input[@data-id='location-search-input']")
-    assert search_location_input.is_displayed()
+    base_page \
+        .verify_user_menu_account(get_user)
