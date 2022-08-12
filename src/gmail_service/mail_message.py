@@ -6,7 +6,7 @@ from typing import List
 
 from retrying import retry
 
-from config import GMAIL_USER_ID
+from src.gmail_service import gmail_user_id
 from src.gmail_service.gmail_client import gmail_client
 from src.gmail_service.retry_condition import is_list_empty
 
@@ -23,10 +23,10 @@ class MailBodyParser:
 
 
 class MailMessage:
+    _client = gmail_client()
 
     def __init__(self, **kwargs):
-        self.user_id = kwargs.get("user_id", GMAIL_USER_ID)
-        self._client = gmail_client()
+        self.user_id = kwargs.get("user_id", gmail_user_id)
 
     def get_messages(self) -> List[dict]:
         messages = self._client.users().messages().list(userId=self.user_id, labelIds=['INBOX']).execute()
