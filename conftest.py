@@ -10,33 +10,6 @@ from src.page_objects.pages.confirm_registration_page import ConfirmRegistration
 from src.page_objects.pages.sign_up_page import SignUpPage
 
 
-# region pages
-
-@pytest.fixture
-def base_page(get_driver) -> BasePage:
-    return BasePage(get_driver)
-
-
-@pytest.fixture
-def sign_up_page(get_driver) -> SignUpPage:
-    return SignUpPage(get_driver)
-
-
-@pytest.fixture
-def confirm_registration_page(get_driver) -> ConfirmRegistrationPage:
-    return ConfirmRegistrationPage(get_driver)
-
-
-# endregion pages
-
-# region modals
-@pytest.fixture
-def get_gift_modal(get_driver) -> GetGiftModal:
-    return GetGiftModal(get_driver)
-
-
-# endregion modals
-
 # region driver setup
 @pytest.fixture
 def get_driver(get_options) -> WebDriver:
@@ -61,4 +34,32 @@ def get_options():
 def close_browser(get_driver):
     yield
     get_driver.quit()
-# region driver setup
+
+
+# endregion driver setup
+
+# region pages init
+
+@pytest.fixture
+def base_page(get_driver) -> BasePage:
+    return BasePage(get_driver)
+
+
+@pytest.fixture
+def sign_up_page(get_driver) -> SignUpPage:
+    return SignUpPage(get_driver)
+
+
+@pytest.fixture
+def confirm_registration_page(get_driver) -> ConfirmRegistrationPage:
+    return ConfirmRegistrationPage(get_driver)
+
+
+# endregion pages init
+
+# region modals init
+@pytest.fixture
+def get_gift_modal(get_driver) -> GetGiftModal:
+    return GetGiftModal(get_driver)
+
+# endregion modals init
