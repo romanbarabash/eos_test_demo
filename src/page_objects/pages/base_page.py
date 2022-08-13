@@ -1,7 +1,8 @@
+from urllib.parse import urljoin
+
 from hamcrest import assert_that, equal_to
 from selenium.webdriver.common.by import By
 
-from src.browser.browser import browser
 from src.models.user_model import UserModel
 
 
@@ -10,8 +11,15 @@ class BasePage:
     USER_MANU_NAME_xpath = USER_MENU_BUTTON_xpath + '//div[@class="full-user-name"]'
     LOG_OUT_BUTTON = (By.XPATH, '//button[@data-id="log-out-button"]')
 
-    def __init__(self):
-        self.driver = browser.driver
+    def __init__(self, driver):
+        self.driver = driver
+
+    def open_url(self, url: str):
+        self.driver.get(url)
+        return self
+
+    def _join_url(self, host: str, path: str):
+        return urljoin(host, path)
 
     def open_user_menu(self):
         self.driver.find_element(By.XPATH, self.USER_MENU_BUTTON_xpath).click()

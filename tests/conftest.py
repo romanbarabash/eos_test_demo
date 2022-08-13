@@ -10,8 +10,9 @@ def get_user():
 
 
 @pytest.fixture
-def user_registration(sign_up_page, get_driver, get_user):
+def user_registration(sign_up_page, get_user):
     sign_up_page \
+        .open_page() \
         .sign_up(user=get_user)
 
 
@@ -30,7 +31,7 @@ def confirm_registration(confirm_registration_page, get_email_verification_code)
 
 
 @pytest.fixture
-def log_out(base_page, get_gift_modal, get_driver, get_user):
+def log_out(base_page, get_gift_modal, get_user):
     get_gift_modal \
         .close_popup()  # TODO - randomly fails on this step, modal does not have 'x' icon, check if this is an issue
 
