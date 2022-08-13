@@ -1,13 +1,12 @@
-from time import sleep
-
 from selenium.webdriver.common.by import By
 
 from config import HOST
 from src.models.user_model import UserModel
 from src.page_objects.pages.base_page import BasePage
+from src.utils.custom_selenium_actions import CustomSeleniumActions
 
 
-class SignUpPage(BasePage):
+class SignUpPage(BasePage, CustomSeleniumActions):
     PATH = ''
 
     FIRST_NAME_FIELD = (By.XPATH, '//input[@formcontrolname="first_name"]')
@@ -33,8 +32,7 @@ class SignUpPage(BasePage):
         self.driver.find_element(*self.PASSWORD_FIELD).send_keys(user.password)
         self.driver.find_element(*self.TERMS_OF_USE_CHECKBOX).click()
         sign_up_button = self.driver.find_element(*self.SIGN_UP_BUTTON)
-        sleep(2)  # TODO - add flexible wait here
-        sign_up_button.click()
+        self.click_till_element_not_attached(element=sign_up_button, timeout=5)
         return self
 
     def sign_in(self, user: UserModel):
