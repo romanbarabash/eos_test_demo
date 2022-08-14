@@ -40,7 +40,6 @@ pytest --capture=no tests
 Here are list of TODO features, which are not covered with tech task, 
 but good to implement next:
 ```
-- pylint code check
 - logging
 - reporting tool integration
 - test on fail logic with attaching screenshoot and browser logs
