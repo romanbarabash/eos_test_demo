@@ -7,7 +7,7 @@ from src.models.user_model import UserModel
 from src.utils.custom_selenium_actions import CustomSeleniumActions
 
 
-class BasePage():
+class BasePage:
     USER_MENU_BUTTON_xpath = '//button[@name="user-menu"]'
     USER_MANU_NAME_xpath = USER_MENU_BUTTON_xpath + '//div[@class="full-user-name"]'
     LOG_OUT_BUTTON = (By.XPATH, '//button[@data-id="log-out-button"]')
