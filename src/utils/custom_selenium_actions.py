@@ -36,7 +36,7 @@ class CustomSeleniumActions():
         except TimeoutException:
             return None
 
-    def wait_till_element_located_disappear(self, locator, timeout=10, poll=0.5):
+    def wait_till_element_located_disappears(self, locator, timeout=10, poll=0.5):
         wait = WebDriverWait(self.driver, timeout=timeout,
                              ignored_exceptions=(StaleElementReferenceException,
                                                  NoSuchElementException,

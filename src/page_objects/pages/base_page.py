@@ -19,7 +19,7 @@ class BasePage():
 
     def wait_for_page_loaded(self):
         self.custom_actions.wait_till_element_located_appears(locator=self.LOAD_SPINNER)
-        self.custom_actions.wait_till_element_located_disappear(locator=self.LOAD_SPINNER)
+        self.custom_actions.wait_till_element_located_disappears(locator=self.LOAD_SPINNER)
         return self
 
     def open_url(self, url: str):
@@ -42,5 +42,5 @@ class BasePage():
     def log_out(self):
         self.custom_actions.wait_till_element_located_appears(locator=self.LOG_OUT_BUTTON)
         self.custom_actions.click_element_using_actions(self.driver.find_element(*self.LOG_OUT_BUTTON))
-        self.custom_actions.wait_till_element_located_disappear(locator=self.LOG_OUT_BUTTON)
+        self.custom_actions.wait_till_element_located_disappears(locator=self.LOG_OUT_BUTTON)
         return self
