@@ -1,4 +1,5 @@
 from selenium.common import StaleElementReferenceException, NoSuchElementException, TimeoutException
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -8,7 +9,14 @@ class CustomSeleniumActions():
     def __init__(self, driver):
         self.driver = driver
 
-    def click_till_element_not_attached(self, element, timeout=10, poll=0.5):
+    def click_element_using_actions(self, element):
+        action = ActionChains(self.driver)
+        action.move_to_element(element).click().perform()
+
+    def click_element_using_js(self, element):
+        self.driver.execute_script("arguments[0].click();", element)
+
+    def click_element_loop(self, element, timeout=10, poll=0.5):
         wait = WebDriverWait(self.driver, timeout, poll_frequency=poll)
         while True:
             try:

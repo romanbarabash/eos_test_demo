@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from webdriver_manager.chrome import ChromeDriverManager
 
 from config import TIMEOUT
+from src.page_objects.modals.base_modal import BaseModal
 from src.page_objects.modals.get_gift_modal import GetGiftModal
 from src.page_objects.pages.base_page import BasePage
 from src.page_objects.pages.confirm_registration_page import ConfirmRegistrationPage
@@ -58,6 +59,11 @@ def confirm_registration_page(get_driver) -> ConfirmRegistrationPage:
 # endregion pages init
 
 # region modals init
+@pytest.fixture
+def base_modal(get_driver) -> BaseModal:
+    return BaseModal(get_driver)
+
+
 @pytest.fixture
 def get_gift_modal(get_driver) -> GetGiftModal:
     return GetGiftModal(get_driver)

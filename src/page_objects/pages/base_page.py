@@ -14,8 +14,8 @@ class BasePage():
     LOAD_SPINNER = (By.XPATH, '//div[@data-id="global-layers-loader"]')
 
     def __init__(self, driver):
-        self.custom_actions = CustomSeleniumActions(driver)
         self.driver = driver
+        self.custom_actions = CustomSeleniumActions(self.driver)
 
     def wait_for_page_loaded(self):
         self.custom_actions.wait_till_element_located_appears(locator=self.LOAD_SPINNER)
@@ -30,6 +30,7 @@ class BasePage():
         return urljoin(host, path)
 
     def open_user_menu(self):
+        self.custom_actions.wait_till_element_located_appears(locator=(By.XPATH, self.USER_MENU_BUTTON_xpath))
         self.driver.find_element(By.XPATH, self.USER_MENU_BUTTON_xpath).click()
         return self
 
@@ -39,5 +40,7 @@ class BasePage():
         return self
 
     def log_out(self):
-        self.driver.find_element(*self.LOG_OUT_BUTTON).click()
+        self.custom_actions.wait_till_element_located_appears(locator=self.LOG_OUT_BUTTON)
+        self.custom_actions.click_element_using_actions(self.driver.find_element(*self.LOG_OUT_BUTTON))
+        self.custom_actions.wait_till_element_located_disappear(locator=self.LOG_OUT_BUTTON)
         return self

@@ -1,4 +1,7 @@
+import warnings
+
 import pytest
+from selenium.common import NoSuchElementException, StaleElementReferenceException
 
 from src.gmail_service.mail_message import MailMessage, MailBodyParser
 from src.models.user_model import UserModel
@@ -31,12 +34,25 @@ def confirm_registration(confirm_registration_page, get_email_verification_code)
 
 
 @pytest.fixture
-def log_out(base_page, get_gift_modal, get_user):
+def log_out(base_modal, base_page, get_gift_modal, get_user):
     base_page \
         .wait_for_page_loaded()
 
-    get_gift_modal \
-        .close_popup()  # TODO - randomly fails on this step, modal does not have 'x' icon, check if this is an issue
+    # TODO - randomly shows different modals on page open, added try-except blocks below to handle, check if this is an issue
+    try:
+        base_modal \
+            .close_all_modals()
+    except NoSuchElementException as err1:
+        warnings.warn(f'"Get free monitoring" modal window does not have "x" icon: {err1}')
+
+    try:
+        get_gift_modal \
+            .fill_gift_form('Farm', 1000)
+
+        base_modal \
+            .close_all_modals()
+    except (NoSuchElementException, StaleElementReferenceException) as err2:
+        warnings.warn(f'"Get free monitoring" modal has already been closed, gift form was not filled: {err2}')
 
     base_page \
         .open_user_menu() \

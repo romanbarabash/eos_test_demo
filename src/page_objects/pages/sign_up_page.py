@@ -25,16 +25,18 @@ class SignUpPage(BasePage):
         return self
 
     def sign_up(self, user: UserModel):
+        self.custom_actions.wait_till_element_located_appears(locator=self.FIRST_NAME_FIELD)
         self.driver.find_element(*self.FIRST_NAME_FIELD).send_keys(user.first_name)
         self.driver.find_element(*self.LAST_NAME_FIELD).send_keys(user.last_name)
         self.driver.find_element(*self.EMAIL_FIELD).send_keys(user.email)
         self.driver.find_element(*self.PASSWORD_FIELD).send_keys(user.password)
         self.driver.find_element(*self.TERMS_OF_USE_CHECKBOX).click()
         self.custom_actions \
-            .click_till_element_not_attached(element=self.driver.find_element(*self.SIGN_UP_BUTTON), timeout=5)
+            .click_element_loop(element=self.driver.find_element(*self.SIGN_UP_BUTTON), timeout=5)
         return self
 
     def sign_in(self, user: UserModel):
+        self.custom_actions.wait_till_element_located_appears(locator=self.SIGN_IN_FORM_BUTTON)
         self.driver.find_element(*self.SIGN_IN_FORM_BUTTON).click()
         self.driver.find_element(*self.EMAIL_FIELD).send_keys(user.email)
         self.driver.find_element(*self.PASSWORD_FIELD).send_keys(user.password)
